@@ -4,7 +4,7 @@
 
 Anthropic shipped [**dynamic workflows**](https://claude.com/blog/introducing-dynamic-workflows-in-claude-code) in Claude Code: Claude writes a JavaScript orchestration script that fans out *tens to hundreds of parallel subagents in one session, checking its work before anything reaches you.* The announcement is concept-only — **no API, no function names, no journal format**. The official docs ([code.claude.com/docs/en/workflows](https://code.claude.com/docs/en/workflows)) confirm the constraints but still don't publish the script API.
 
-So instead of guessing from the blog, I did the empirical thing: **I ran the real tool, captured its logs, analyzed them, and reproduced the observed behavior** — until a differential gate scored **34/34 = 100%** against the captured traces. The result is [`open-dynamic-workflow`](https://github.com/robotlearning123/open-dynamic-workflow): an open TypeScript engine you can run *outside* Claude Code, whose basic unit is a **pluggable real agent** (Claude Code, Codex, OpenCode, or a cloud runner).
+So instead of guessing from the blog, I did the empirical thing: **I ran the real tool, captured its logs, analyzed them, and reproduced the observed behavior** — until a differential gate scored **34/34 = 100%** against the captured traces. The result is [`open-dynamic-workflow`](https://github.com/agent-next/open-dynamic-workflow): an open TypeScript engine you can run *outside* Claude Code, whose basic unit is a **pluggable real agent** (Claude Code, Codex, OpenCode, or a cloud runner).
 
 This post is the full teardown: the method, every surprising finding (with the experiment that proved it), the reproduction, and an honest accounting of where it does and doesn't match.
 
@@ -153,7 +153,7 @@ This reproduces **observable behavior**, not Anthropic's internals. The `v2:` ha
 ## Try it
 
 ```bash
-git clone https://github.com/robotlearning123/open-dynamic-workflow && cd open-dynamic-workflow
+git clone https://github.com/agent-next/open-dynamic-workflow && cd open-dynamic-workflow
 npm install && npm run build
 npm test && npm run compare      # 239 tests + 34/34 fidelity
 node dist/cli.js examples/review-changes.js --mock   # offline, deterministic

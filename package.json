@@ -17,11 +17,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/robotlearning123/open-dynamic-workflow.git"
+    "url": "git+https://github.com/agent-next/open-dynamic-workflow.git"
   },
-  "homepage": "https://github.com/robotlearning123/open-dynamic-workflow#readme",
+  "homepage": "https://github.com/agent-next/open-dynamic-workflow#readme",
   "bugs": {
-    "url": "https://github.com/robotlearning123/open-dynamic-workflow/issues"
+    "url": "https://github.com/agent-next/open-dynamic-workflow/issues"
   },
   "type": "module",
   "main": "dist/index.js",

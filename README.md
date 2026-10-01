@@ -1,6 +1,6 @@
 # open-dynamic-workflow
 
-[![ci](https://github.com/robotlearning123/open-dynamic-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/robotlearning123/open-dynamic-workflow/actions/workflows/ci.yml)
+[![ci](https://github.com/agent-next/open-dynamic-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/agent-next/open-dynamic-workflow/actions/workflows/ci.yml)
 [![fidelity](https://img.shields.io/badge/OURS_vs_CLAUDE-34%2F34%20100%25-brightgreen)](./tools/compare.mjs)
 [![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
