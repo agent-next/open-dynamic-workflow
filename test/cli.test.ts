@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { makeTmpDir } from "./tmpdir.js";
+import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { tmpdir } from "node:os";
 import { parseArgs, run, CliUsageError } from "../src/cli.js";
 import { silentReporter } from "../src/progress.js";
 
@@ -24,7 +24,7 @@ describe("cli parseArgs", () => {
 
 describe("cli run", () => {
   it("runs a workflow with --mock and returns code 0 + result", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "odw-cli-"));
+    const dir = makeTmpDir("odw-cli-");
     const script = join(dir, "w.js");
     writeFileSync(script, "export const meta={name:'c',description:'d'};\nreturn await agent('hi',{label:'a'});\n");
     const r = await run(argv(script, "--mock", "--json-dir", join(dir, ".runs")), { reporter: silentReporter });

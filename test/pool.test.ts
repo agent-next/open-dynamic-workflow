@@ -15,9 +15,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { mkdtempSync } from "node:fs";
-import { join } from "node:path";
-import { tmpdir } from "node:os";
+import { makeTmpDir } from "./tmpdir.js";
 import type { AgentBackend, AgentRequest, AgentResponse } from "../src/types.js";
 import { MockBackend } from "../src/backend.js";
 import { PoolState, memoryStore } from "../src/pool-state.js";
@@ -59,10 +57,6 @@ function stateFromRoutes(
     };
   }
   return new PoolState(names, limits, opts);
-}
-
-function makeTmpDir(): string {
-  return mkdtempSync(join(tmpdir(), "pool-test-"));
 }
 
 // ---------- 1. routing ----------
@@ -664,7 +658,7 @@ describe("defaultModel gap-fix", () => {
 
     const ctx = createContext({
       backend: capturer,
-      journalDir: makeTmpDir(),
+      journalDir: makeTmpDir("pool-test-"),
       runId: "test-default-model",
       defaultModel: "my-default-model",
       reporter: silentReporter,
@@ -684,7 +678,7 @@ describe("defaultModel gap-fix", () => {
 
     const ctx = createContext({
       backend: capturer,
-      journalDir: makeTmpDir(),
+      journalDir: makeTmpDir("pool-test-"),
       runId: "test-override-model",
       defaultModel: "default-model",
       reporter: silentReporter,
@@ -710,7 +704,7 @@ describe("defaultModel gap-fix", () => {
 
     const ctx = createContext({
       backend: poolBackend,
-      journalDir: makeTmpDir(),
+      journalDir: makeTmpDir("pool-test-"),
       runId: "test-pool-default",
       defaultModel: "my-worker-model", // <-- this should route to workerBackend
       reporter: silentReporter,

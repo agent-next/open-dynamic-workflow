@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { mkdtempSync } from "node:fs";
+import { makeTmpDir } from "./tmpdir.js";
 import { join } from "node:path";
-import { tmpdir } from "node:os";
 import type { AgentBackend, AgentRequest, AgentResponse } from "../src/types.js";
 import { PoolState, fileStore, httpStore } from "../src/pool-state.js";
 import type { PoolStateSnapshot, StateStore } from "../src/pool-state.js";
@@ -77,7 +76,7 @@ describe("pool review fixes", () => {
   });
 
   it("#5 fileStore roundtrips a snapshot and returns null for a missing file", async () => {
-    const path = join(mkdtempSync(join(tmpdir(), "poolst-")), "state.json");
+    const path = join(makeTmpDir("poolst-"), "state.json");
     const store = fileStore(path);
     expect(await store.load()).toBeNull();
     const snap: PoolStateSnapshot = { version: 1, updatedAt: 123, members: { m: memberState({ rpdCount: 7 }) } };
