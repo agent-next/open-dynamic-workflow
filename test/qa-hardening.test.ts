@@ -1,7 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { mkdtempSync } from "node:fs";
-import { join } from "node:path";
-import { tmpdir } from "node:os";
+import { makeTmpDir } from "./tmpdir.js";
 import { Limiter } from "../src/concurrency.js";
 import { createContext, makeGlobals } from "../src/primitives.js";
 import { AnthropicBackend } from "../src/backend.js";
@@ -10,7 +8,7 @@ import { validate } from "../src/structured-output.js";
 import { parseMeta } from "../src/runner.js";
 import type { AgentBackend, ProgressEvent } from "../src/types.js";
 
-const tmp = (): string => mkdtempSync(join(tmpdir(), "odw-qa-"));
+const tmp = (): string => makeTmpDir("odw-qa-");
 
 describe("Limiter validation + slot safety (C1/C2)", () => {
   it("rejects non-positive / NaN max instead of silently deadlocking [C1]", () => {

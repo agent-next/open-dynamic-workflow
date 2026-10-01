@@ -1,16 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { mkdtempSync } from "node:fs";
-import { join } from "node:path";
-import { tmpdir } from "node:os";
+import { makeTmpDir } from "./tmpdir.js";
 import type { AgentBackend, AgentRequest, AgentResponse } from "../src/types.js";
 import { parseMeta, runWorkflow } from "../src/runner.js";
 import { silentReporter } from "../src/progress.js";
 
 // ---------- helpers ----------
-
-function makeTmpDir(): string {
-  return mkdtempSync(join(tmpdir(), "odw-runner-test-"));
-}
 
 class MockBackend implements AgentBackend {
   readonly calls: AgentRequest[] = [];
@@ -54,7 +48,7 @@ function makeRunCfg(
 describe("runWorkflow", () => {
   it("executes phases + parallel agents and returns the workflow return value", async () => {
     const backend = new MockBackend({ responder: (req) => `result:${req.prompt.slice(0, 10)}` });
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-runner-test-");
 
     const source = `
 export const meta = {
@@ -92,7 +86,7 @@ return results;
 
   it("runId defaults to deterministic wf_ hash (no Date/random) when not supplied", async () => {
     const backend = new MockBackend();
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-runner-test-");
     const source = `
 export const meta = { name: "n", description: "d" };
 return 1;
@@ -104,7 +98,7 @@ return 1;
 
   it("same source + args always produces the same deterministic runId", async () => {
     const backend = new MockBackend();
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-runner-test-");
     const source = `
 export const meta = { name: "n", description: "d" };
 return 2;
@@ -112,7 +106,7 @@ return 2;
     const cfg = makeRunCfg(backend, journalDir);
     const r1 = await runWorkflow(source, cfg);
     // Use a different journalDir so the second run can write its own journal.
-    const journalDir2 = makeTmpDir();
+    const journalDir2 = makeTmpDir("odw-runner-test-");
     const r2 = await runWorkflow(source, { ...cfg, journalDir: journalDir2 });
     expect(r1.runId).toBe(r2.runId);
   });
@@ -184,7 +178,7 @@ describe("sandbox safety", () => {
   }
 
   it("Date.now() rejects with the exact message", async () => {
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-runner-test-");
     const source = `
 export const meta = { name: "n", description: "d" };
 const t = Date.now();
@@ -194,7 +188,7 @@ return t;
   });
 
   it("new Date() (no args) rejects with the exact message", async () => {
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-runner-test-");
     const source = `
 export const meta = { name: "n", description: "d" };
 const d = new Date();
@@ -204,7 +198,7 @@ return d;
   });
 
   it("new Date(0) works (arg provided)", async () => {
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-runner-test-");
     const source = `
 export const meta = { name: "n", description: "d" };
 const d = new Date(0);
@@ -215,7 +209,7 @@ return d.toISOString();
   });
 
   it("Math.random() rejects with the exact message", async () => {
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-runner-test-");
     const source = `
 export const meta = { name: "n", description: "d" };
 const v = Math.random();
@@ -225,7 +219,7 @@ return v;
   });
 
   it("Math.floor and other Math methods still work", async () => {
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-runner-test-");
     const source = `
 export const meta = { name: "n", description: "d" };
 return Math.floor(3.7);
@@ -239,7 +233,7 @@ return Math.floor(3.7);
 
 describe("sandbox isolation", () => {
   it("typeof require === 'undefined' inside the script", async () => {
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-runner-test-");
     const source = `
 export const meta = { name: "n", description: "d" };
 return typeof require;
@@ -249,7 +243,7 @@ return typeof require;
   });
 
   it("typeof process === 'undefined' inside the script", async () => {
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-runner-test-");
     const source = `
 export const meta = { name: "n", description: "d" };
 return typeof process;
@@ -259,7 +253,7 @@ return typeof process;
   });
 
   it("typeof fetch === 'undefined' inside the script", async () => {
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-runner-test-");
     const source = `
 export const meta = { name: "n", description: "d" };
 return typeof fetch;

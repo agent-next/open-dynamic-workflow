@@ -1,11 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { mkdtempSync } from "node:fs";
-import { join } from "node:path";
-import { tmpdir } from "node:os";
+import { makeTmpDir } from "./tmpdir.js";
 import { runWorkflow } from "../src/runner.js";
 import { MockBackend } from "../src/backend.js";
 
-const tmp = (): string => mkdtempSync(join(tmpdir(), "odw-nested-"));
+const tmp = (): string => makeTmpDir("odw-nested-");
 
 describe("nested workflow() runs in the same vm sandbox (determinism, not host realm)", () => {
   it("blocks Date.now() and Math.random() inside a CHILD workflow", async () => {

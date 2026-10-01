@@ -1,11 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { mkdtempSync } from "node:fs";
-import { join } from "node:path";
-import { tmpdir } from "node:os";
+import { makeTmpDir } from "./tmpdir.js";
 import { chainKey, createJournal } from "../src/journal.js";
 import type { AgentOpts } from "../src/types.js";
 
-const tmp = (): string => mkdtempSync(join(tmpdir(), "odw-jrnl-"));
+const tmp = (): string => makeTmpDir("odw-jrnl-");
 
 /** Compute the prefix-chained keys for a sequence of calls (invocation order). */
 function chainAll(calls: Array<{ prompt: string; opts?: AgentOpts }>): string[] {

@@ -1,12 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { makeTmpDir } from "./tmpdir.js";
+import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { tmpdir } from "node:os";
 import { runWorkflowFile, MockBackend } from "../src/index.js";
 
 describe("named-workflow registry + nesting", () => {
   it("resolves workflow('name') via cfg.workflows and runs it one level deep", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "odw-reg-"));
+    const dir = makeTmpDir("odw-reg-");
     const child = join(dir, "child.js");
     const parent = join(dir, "parent.js");
     writeFileSync(child, "export const meta={name:'child',description:'c'};\nreturn {from:'child'};\n");

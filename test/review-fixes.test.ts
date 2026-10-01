@@ -1,12 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { makeTmpDir } from "./tmpdir.js";
+import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { tmpdir } from "node:os";
 import { parseMeta, runWorkflowFile } from "../src/runner.js";
 import { validate } from "../src/structured-output.js";
 import { MockBackend } from "../src/backend.js";
 
-const tmp = (): string => mkdtempSync(join(tmpdir(), "odw-rf-"));
+const tmp = (): string => makeTmpDir("odw-rf-");
 
 describe("adversarial-review regressions", () => {
   // ---- M3: parseMeta must ignore comments (braces / "meta=" inside them) ----

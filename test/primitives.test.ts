@@ -1,17 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { mkdtempSync } from "node:fs";
-import { join } from "node:path";
-import { tmpdir } from "node:os";
+import { makeTmpDir } from "./tmpdir.js";
 import type { AgentBackend, AgentRequest, AgentResponse } from "../src/types.js";
 import { createContext, makeGlobals } from "../src/primitives.js";
 import { MAX_TOTAL_AGENTS } from "../src/concurrency.js";
 import { silentReporter } from "../src/progress.js";
 
 // ---------- helpers ----------
-
-function makeTmpDir(): string {
-  return mkdtempSync(join(tmpdir(), "odw-test-"));
-}
 
 class MockBackend implements AgentBackend {
   readonly calls: AgentRequest[] = [];
@@ -52,7 +46,7 @@ function makeCtx(
     resumeFromRunId?: string;
   } = {}
 ) {
-  const journalDir = extra.journalDir ?? makeTmpDir();
+  const journalDir = extra.journalDir ?? makeTmpDir("odw-test-");
   const runId = extra.runId ?? ("test-" + Math.random().toString(36).slice(2));
   return createContext({
     backend,
@@ -237,7 +231,7 @@ describe("agent lifetime cap", () => {
 
 describe("resume", () => {
   it("second run with resumeFromRunId serves all results from cache, zero backend calls", async () => {
-    const journalDir = makeTmpDir();
+    const journalDir = makeTmpDir("odw-test-");
     const runId1 = "run-first";
 
     // First run: 3 sequential agents
