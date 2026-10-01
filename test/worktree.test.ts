@@ -7,7 +7,8 @@ import { withWorktree, canWorktree } from "../src/worktree.js";
 
 function initRepo(): string {
   const dir = mkdtempSync(join(tmpdir(), "odw-repo-"));
-  execFileSync("git", ["-C", dir, "init", "-q"]);
+  // Explicit branch name: the default comes from the host's git config, and hooks may refuse commits on main.
+  execFileSync("git", ["-C", dir, "init", "-q", "-b", "odw-test"]);
   execFileSync("git", ["-C", dir, "config", "user.email", "t@t.dev"]);
   execFileSync("git", ["-C", dir, "config", "user.name", "t"]);
   writeFileSync(join(dir, "f.txt"), "hello");
