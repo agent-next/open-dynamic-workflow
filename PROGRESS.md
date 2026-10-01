@@ -39,7 +39,7 @@ Expected baseline from the latest local audit:
 ## Private Archive
 
 - The original private history is retained separately in
-  `agent-next/open-dynamic-workflow-private-archive`.
+  `robotlearning123/open-dynamic-workflow-private-archive`.
 - Do not make that archive public unless its git history is rewritten and
   rescanned.
 
