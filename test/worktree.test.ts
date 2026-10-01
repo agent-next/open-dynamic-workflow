@@ -1,12 +1,20 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, afterEach } from "vitest";
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, writeFileSync, existsSync } from "node:fs";
+import { mkdtempSync, writeFileSync, existsSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { withWorktree, canWorktree } from "../src/worktree.js";
 
+// Every temp dir this file creates, so the last test can prove none are left behind.
+const created: string[] = [];
+function tmp(prefix: string): string {
+  const dir = mkdtempSync(join(tmpdir(), prefix));
+  created.push(dir);
+  return dir;
+}
+
 function initRepo(): string {
-  const dir = mkdtempSync(join(tmpdir(), "odw-repo-"));
+  const dir = tmp("odw-repo-");
   // Explicit branch name: the default comes from the host's git config, and hooks may refuse commits on main.
   execFileSync("git", ["-C", dir, "init", "-q", "-b", "odw-test"]);
   execFileSync("git", ["-C", dir, "config", "user.email", "t@t.dev"]);
@@ -18,6 +26,10 @@ function initRepo(): string {
 }
 
 describe("withWorktree (opt-in isolation)", () => {
+  afterEach(() => {
+    for (const dir of created) rmSync(dir, { recursive: true, force: true });
+  });
+
   it("runs fn in a fresh isolated worktree (with committed files) and cleans up", async () => {
     const repo = initRepo();
     expect(canWorktree(repo)).toBe(true);
@@ -33,9 +45,14 @@ describe("withWorktree (opt-in isolation)", () => {
   });
 
   it("falls back to running in-place when the root is not a git repo", async () => {
-    const plain = mkdtempSync(join(tmpdir(), "odw-plain-"));
+    const plain = tmp("odw-plain-");
     expect(canWorktree(plain)).toBe(false);
     const dir = await withWorktree(plain, async (d) => d);
     expect(dir).toBe(plain); // no isolation, ran in-place
+  });
+
+  it("leaves no temp dirs behind", () => {
+    expect(created.length).toBe(2);
+    for (const dir of created) expect(existsSync(dir)).toBe(false);
   });
 });
