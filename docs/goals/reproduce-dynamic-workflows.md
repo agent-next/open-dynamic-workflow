@@ -58,7 +58,7 @@ Two halves: (A) **Understand** the real system from evidence (the official blog 
 - C7 per-semantic tests: **PASS** — named tests for each behavior incl. 1000-cap.
 - C8 fidelity cross-check: **PASS** — `node tools/compare.mjs` = 34/34 = 100% (stable across runs).
 - C9 resume in repro: **PASS** — resume test = 0 backend calls.
-- C10 staging repo + push: **PASS** — https://github.com/robotlearning123/open-dynamic-workflow (default branch main, 253 files at this sprint snapshot).
+- C10 staging repo + push: **PASS** — https://github.com/agent-next/open-dynamic-workflow (default branch main, 253 files at this sprint snapshot).
 - Boundaries (Wave C/D): nesting=1 level (exact msg), parallel sync-throw crashes / async-reject→null, pipeline stage-throw→null, empty→[], cap=16, lifetime cap 1000 (engine-tested). See ANALYSIS §12.
 
 ## Risk areas

@@ -44,4 +44,4 @@ with OS‑level sandboxing / a container, or replace the runner with `isolated-v
 ## Reporting
 
 Educational reproduction (v0.x). Please open an issue for security concerns:
-<https://github.com/robotlearning123/open-dynamic-workflow/issues>
+<https://github.com/agent-next/open-dynamic-workflow/issues>

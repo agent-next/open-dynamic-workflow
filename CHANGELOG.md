@@ -125,10 +125,10 @@ First release — an evidence-grounded, behaviorally **1:1** reproduction of Cla
 - `parallel` propagates a **synchronous** thunk throw (only async rejections become `null`) (experiment-05).
 - Official resume is **same-session-only**; our journal-based cross-session replay is a superset.
 
-[0.0.7]: https://github.com/robotlearning123/open-dynamic-workflow/releases/tag/v0.0.7
-[0.0.6]: https://github.com/robotlearning123/open-dynamic-workflow/releases/tag/v0.0.6
-[0.0.5]: https://github.com/robotlearning123/open-dynamic-workflow/releases/tag/v0.0.5
-[0.0.4]: https://github.com/robotlearning123/open-dynamic-workflow/releases/tag/v0.0.4
-[0.0.3]: https://github.com/robotlearning123/open-dynamic-workflow/releases/tag/v0.0.3
-[0.0.2]: https://github.com/robotlearning123/open-dynamic-workflow/releases/tag/v0.0.2
-[0.0.1]: https://github.com/robotlearning123/open-dynamic-workflow/releases/tag/v0.0.1
+[0.0.7]: https://github.com/agent-next/open-dynamic-workflow/releases/tag/v0.0.7
+[0.0.6]: https://github.com/agent-next/open-dynamic-workflow/releases/tag/v0.0.6
+[0.0.5]: https://github.com/agent-next/open-dynamic-workflow/releases/tag/v0.0.5
+[0.0.4]: https://github.com/agent-next/open-dynamic-workflow/releases/tag/v0.0.4
+[0.0.3]: https://github.com/agent-next/open-dynamic-workflow/releases/tag/v0.0.3
+[0.0.2]: https://github.com/agent-next/open-dynamic-workflow/releases/tag/v0.0.2
+[0.0.1]: https://github.com/agent-next/open-dynamic-workflow/releases/tag/v0.0.1

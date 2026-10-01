@@ -26,12 +26,12 @@ Expected baseline from the latest local audit:
   `npm run release:export -- <empty-dir>`; verified with `npm ci`, typecheck,
   build, 239 tests, fidelity, cross-check, and pack dry-run.
 - Public GitHub Actions CI: passing on `main` in
-  `robotlearning123/open-dynamic-workflow`.
+  `agent-next/open-dynamic-workflow`.
 
 ## Release Notes
 
 - Package version in `package.json`: `0.0.7`.
-- Public repository: <https://github.com/robotlearning123/open-dynamic-workflow>.
+- Public repository: <https://github.com/agent-next/open-dynamic-workflow>.
 - This public repository was seeded from a sanitized current tree, not from the
   old private repository history.
 - CI uses GitHub-hosted `ubuntu-latest` runners for the public repository.
