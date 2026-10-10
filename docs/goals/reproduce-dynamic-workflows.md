@@ -1,7 +1,7 @@
 # Goal: Fully understand Claude Code "dynamic workflows" empirically (log/monitor/analyze, loop/test/verify) until we have enough verified detail to reproduce them 1:1 — then build that 1:1 reproduction.
 
 > Historical planning artifact from the initial reverse-engineering sprint. It records the staging
-> repo state at that time; current release/open-source status is tracked in `PROGRESS.md`.
+> repo state at that time.
 
 Two halves: (A) **Understand** the real system from evidence (the official blog + real working logs we capture by running it), and (B) **Reproduce** it 1:1 as a TypeScript engine whose behavior matches the captured traces.
 
@@ -13,10 +13,10 @@ Two halves: (A) **Understand** the real system from evidence (the official blog 
 ## Criteria (each must be VERIFIED, not assumed)
 
 ### A. Understanding (evidence-complete)
-- [ ] C1 Every core primitive's semantics captured with a citing trace artifact — verify: `ANALYSIS.md` present; each claim cites `traces/...`; primitive checklist all ticked.
+- [ ] C1 Every core primitive's semantics captured with a citing trace artifact — verify: `SPEC.md` present; each claim cites `traces/...`; primitive checklist all ticked.
 - [ ] C2 Journal format reproduced by a parser — verify: `python3 tools/harvest_trace.py` parses ALL transcripts with 0 errors and emits digests.
 - [ ] C3 Resume/cache-hit behavior captured empirically — verify: a resume run's trace shows cached results and **no new** agent transcripts for unchanged calls.
-- [ ] C4 Concurrency cap, budget (=output tokens), parallel order, pipeline no-barrier all evidenced — verify: specific cited trace lines in ANALYSIS.md.
+- [ ] C4 Concurrency cap, budget (=output tokens), parallel order, pipeline no-barrier all evidenced — verify: specific cited trace lines in `SPEC.md` + `traces/`.
 
 ### B. Reproduction (1:1, command-verifiable)
 - [ ] C5 Engine type-checks — verify: `npm run typecheck` (`tsc --noEmit`) exit 0.
@@ -49,7 +49,7 @@ Two halves: (A) **Understand** the real system from evidence (the official blog 
 ## Sub-tasks → see TaskList (#1–#8).
 
 ## FINAL STATUS (2026-05-28) — ALL CRITERIA MET
-- C1 understanding: **PASS** — ANALYSIS.md, every claim cites traces/.
+- C1 understanding: **PASS** — `SPEC.md`, every claim cites traces/.
 - C2 journal parser: **PASS** — tools/harvest_trace.py parses all runs, 0 errors.
 - C3 resume captured: **PASS** — exp-02 + FINDING-resume-semantics.md (partial-cache mechanism).
 - C4 cap/budget/order/no-barrier: **PASS** — exp-01/03 (cap=16, parallel order, pipeline no-barrier, budget=output tokens).

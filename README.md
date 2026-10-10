@@ -9,8 +9,8 @@
 Claude writes orchestration scripts that fan out tens–hundreds of parallel subagents and check their own work. This repo reproduces that engine **outside** Claude Code — and was reverse-engineered the honest way: we **ran the real thing 7 times, captured its logs, and matched the observed behavior** until a differential gate scores 100%.
 
 ```
- blog (concepts)  +  REAL working logs (traces/, 7 runs)  ──▶  ANALYSIS.md  ──▶  src/  ──▶  compare.mjs = 34/34 (100%)
-        S1                       S2–S5                          reasoning       engine        OURS vs CLAUDE
+ blog (concepts)  +  REAL working logs (traces/, 7 runs)  ──▶  src/  ──▶  compare.mjs = 34/34 (100%)
+       S1                       S2–S5                          evidence       engine        OURS vs CLAUDE
 ```
 
 ## Why this exists — capability first
@@ -60,14 +60,14 @@ node dist/cli.js examples/review-changes.js --mock   # offline, deterministic
 3. The subagent is a **full Claude Code agent** (one probe shelled out via `Bash` + filesystem MCP before answering) — which is exactly why our basic unit is a real agent, not a bare LLM call.
 4. **Concurrency cap = `min(16, cores-2)`**; **budget** is a turn-global output-token meter (turn-global in raw; run-scoped in this engine — see Honest boundaries).
 
-**Full teardown (blog):** [`docs/blog/2026-05-28-reverse-engineering-claude-dynamic-workflows.md`](./docs/blog/2026-05-28-reverse-engineering-claude-dynamic-workflows.md). Cited write-up: [`ANALYSIS.md`](./ANALYSIS.md). How it was built: [`RUNLOG.md`](./RUNLOG.md). Sources: [`PROVENANCE.md`](./PROVENANCE.md).
+**Full teardown (blog):** [`docs/blog/2026-05-28-reverse-engineering-claude-dynamic-workflows.md`](./docs/blog/2026-05-28-reverse-engineering-claude-dynamic-workflows.md). Sources: [`PROVENANCE.md`](./PROVENANCE.md).
 
 ## Primitives
 `agent(prompt, opts?)` · `parallel(thunks)` · `pipeline(items, ...stages)` · `phase(t)` · `log(m)` · `budget` · `workflow(ref, args?)` — plain-JS scripts in a `vm` sandbox, journaled for resume. Mapping table in [`SPEC.md`](./SPEC.md).
 
 ## Repo layout
 ```
-ANALYSIS.md RUNLOG.md SPEC.md PROVENANCE.md docs/PARITY.md docs/goals/
+SPEC.md PROVENANCE.md docs/PARITY.md docs/goals/
 traces/   7 real runs (raw journal + per-subagent transcripts) + harvested digests + probe scripts
 tools/    harvest_trace.py · compare.mjs (1:1 gate) · crosscheck.mjs
 src/      engine + 4 backends   test/  238 vitest tests   examples/  plain-JS workflows

@@ -15,7 +15,7 @@ node tools/compare.mjs    # OURS vs CLAUDE must stay 34/34 = 100%
   Workflow({ scriptPath: "traces/your-probe.workflow.js" })
   python3 tools/harvest_trace.py <printed transcript dir>
   ```
-  Then add the finding (with the citing artifact) to `ANALYSIS.md` and, if it's a new behavior, a test.
+  Then add the finding (with the citing artifact) to `SPEC.md` / `docs/PARITY.md` and, if it's a new behavior, a test.
 
 ## Adding an agent backend (the basic unit is pluggable)
 Implement `AgentBackend` (`run(req) => { output, inputTokens, outputTokens }`). See `src/cli-agent-backend.ts` (local processes) and `src/http-agent-backend.ts` (cloud). Keep `run` deterministic enough to unit-test with an injected client/`fetch`/command (no network, no real agent in tests).

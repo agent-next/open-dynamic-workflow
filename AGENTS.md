@@ -11,7 +11,7 @@ Open TypeScript engine reproducing Claude Code's dynamic workflows — `agent` /
 - `traces/` — ground-truth logs from real Claude Code runs plus probe experiments. Inputs to the fidelity gates; treat as read-only data.
 - `tools/` — `compare.mjs` (1:1 gate OURS vs CLAUDE traces, 34/34), `crosscheck.mjs` (journal/resume), `live-e2e.mjs` (real agents; needs local CLIs).
 - `examples/` — plain-JS workflow scripts; run offline with `node dist/cli.js <file> --mock`.
-- `ANALYSIS.md`, `SPEC.md`, `docs/PARITY.md` — behavior reasoning, primitive mapping, and the honest parity/deviation matrix.
+- `SPEC.md`, `docs/PARITY.md` — primitive mapping and the honest parity/deviation matrix.
 
 ## Setup
 Node >= 20 only (verified on 22.x); no other prerequisites.

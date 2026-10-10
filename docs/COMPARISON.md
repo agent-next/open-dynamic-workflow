@@ -1,6 +1,6 @@
 # Comparison: ours vs raw Claude · vs the field
 
-Synthesized from three parallel research agents (2026-05-28): Claude **official** docs, **mainstream** orchestration frameworks (star counts WebFetch-verified that day), and the **named niche** projects. Raw artifacts: `research/competitive-landscape/`. Honest accounting of raw-feature coverage: `PARITY.md`.
+Synthesized from three parallel research agents (2026-05-28): Claude **official** docs, **mainstream** orchestration frameworks (star counts WebFetch-verified that day), and the **named niche** projects. Honest accounting of raw-feature coverage: `PARITY.md`.
 
 ## TL;DR — our niche (what nobody else does)
 1. **Only project that verifies behavioral fidelity to a real engine** — `tools/compare.mjs` asserts our behavior == captured Claude traces (34/34). Everyone else designs their own semantics.

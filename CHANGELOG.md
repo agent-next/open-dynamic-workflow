@@ -55,7 +55,6 @@ Author-layer + maintenance release. Adds the author layer (any agent — not jus
 - **Author layer** (`src/author.ts`): `authorWorkflow()` lets any backend *write* the workflow script, with a separate `authorBackend` vs `runBackend` (+ `authorModel`, `dryRun`) — the script's author need not be its executor.
 - **`docs/AGENT-POOL.md`** — locked design for a status-aware, heterogeneous **agent×model pool** (premium orchestrator + free/cheap workers; deterministic scheduler with rpm/rpd budget + circuit-breaker + `Retry-After`; persistable load/upload state; opt-in manager role). Design only — not yet implemented.
 - **`docs/claude-dynamic-workflow-explained.html`** — single-file visual explainer.
-- Demos: `ccz-author-demo.mjs` (author layer on free GLM), `fleet-review.mjs` (per-`req.model` fleet routing, `ccz` vs `ccxm`).
 
 ### Changed
 - **Stricter TS lint**: `noUnusedLocals` + `noUnusedParameters` enabled (`tsconfig.json`).
@@ -88,7 +87,7 @@ Quality-hardening release — two adversarial review rounds (a single-agent pass
 ### Pre-launch review (2026-05-29)
 - Pre-launch review hardening: input validation for `runId`/`resumeFromRunId` (path-traversal guard, `^[A-Za-z0-9_-]{1,128}$`), `SECURITY.md` caveats expanded (child-workflow realm, env inheritance, stderr-in-errors, runId validation, parseMeta context).
 - Privacy: stripped private skill-listing / internal tool-name attachments from committed `traces/`.
-- Docs: corrected PARITY run-count (5→7+live e2e), blog version (v0.0.1→v0.0.3), RUNLOG exp-02 cache-key note, COMPARISON.md CliAgentBackend preset list; added Kimi K2.6 / Manus Wide Research comparison (§7).
+- Docs: corrected PARITY run-count (5→7+live e2e), blog version (v0.0.1→v0.0.3), exp-02 cache-key note, COMPARISON.md CliAgentBackend preset list; added Kimi K2.6 / Manus Wide Research comparison (§7).
 - Packaging: `examples/` now included in npm tarball (`"files"` array in `package.json`).
 
 ## [0.0.2] - 2026-05-28
@@ -116,7 +115,7 @@ First release — an evidence-grounded, behaviorally **1:1** reproduction of Cla
 - `HttpAgentBackend` — **cloud** remote runners (OpenAI Responses / Vertex Agent Engine / Bedrock / Claude Managed Agents via adapter).
 
 ### Evidence, fidelity & docs
-- 7 real captured runs under `traces/` (`tools/harvest_trace.py`), `ANALYSIS.md` (every claim cited), `PROVENANCE.md`, `RUNLOG.md`.
+- 7 real captured runs under `traces/` (`tools/harvest_trace.py`), `SPEC.md` (every claim cited), `PROVENANCE.md`.
 - `tools/compare.mjs` differential **OURS vs CLAUDE = 34/34 = 100%** + `tools/crosscheck.mjs`; GitHub Actions CI runs both. 135 unit tests; `tsc` strict-clean.
 - `SPEC.md`, `docs/PARITY.md` (honest raw-coverage matrix), `docs/COMPARISON.md` (vs raw + frameworks + managed platforms), examples (review pipeline, research fan-out, loop-until-dry), CLI (`run-workflow`).
 

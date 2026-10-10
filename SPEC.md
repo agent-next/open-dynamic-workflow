@@ -2,7 +2,8 @@
 
 This is the single source of truth for the fan-out implementers. **Implement these exact
 exports against `src/types.ts`. Do not change `src/types.ts` or these signatures.** Every
-semantic traces to `ANALYSIS.md` §N. ESM TypeScript, `"type":"module"`, NodeNext, strict.
+semantic traces to the captured evidence under `traces/` (see `traces/experiment-*/parsed/digest.md`).
+ESM TypeScript, `"type":"module"`, NodeNext, strict.
 
 ## Verified Anthropic SDK contract (from context7, 2026-05-28 — use verbatim, do NOT invent)
 ```ts

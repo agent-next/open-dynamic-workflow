@@ -36,7 +36,7 @@ Order of operations (per project priority): **(1) be 1:1 with raw first, (2) cov
 | Tool-using direct API agents | n/a | ✅ `AnthropicBackend({tools})` tool-use loop |
 | Deterministic offline testing | ✗ | ✅ `MockBackend` (schema-faking, no Date/random) |
 | Transparent, inspectable resume | internal | ✅ human-readable `journal.jsonl` |
-| Reverse-engineering field guide | n/a | ✅ `ANALYSIS.md` + `traces/` (7 real runs + live e2e) |
+| Reverse-engineering field guide | n/a | ✅ `SPEC.md` + `traces/` (7 real runs + live e2e) |
 
 ## 3. Honest boundaries (reproduce observable behavior, not internals)
 - The `v2:` cache-key **hash preimage** is undisclosed — we match shape/semantics, not bytes.
