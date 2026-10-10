@@ -1,0 +1,5 @@
+{
+  "name": "open-dynamic-workflow",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "postCreateCommand": "make setup"
+}
