@@ -6,4 +6,4 @@ the npm package surface.
 
 Some scripts include capture-time absolute paths from the machine where the sprint ran. Those paths
 are historical metadata only; current reproducible verification commands are documented in
-`PROGRESS.md`.
+`CONTRIBUTING.md` and run via `make check`.

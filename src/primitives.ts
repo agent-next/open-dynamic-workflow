@@ -61,7 +61,7 @@ export function makeGlobals(ctx: RunContext): WorkflowGlobals {
 
   function agent(prompt: string, opts: AgentOpts = {}): Promise<unknown> {
     // Synchronous, BEFORE any await: advance the invocation ordinal and the prefix CHAIN so the
-    // key depends on every preceding call (prefix/cascade + reorder semantics — ANALYSIS §6).
+    // key depends on every preceding call (prefix/cascade + reorder semantics — traces/experiment-06).
     const ordinal = ++ctx.state.ordinal;
     const label = opts.label ?? "agent#" + ordinal;
     const phase = opts.phase ?? ctx.state.currentPhase;

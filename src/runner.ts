@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import type { Meta, RunConfig, RunResult } from "./types.js";
 import { createContext, makeGlobals } from "./primitives.js";
 
-// ---------- exact sandbox error messages from ANALYSIS §9 ----------
+// ---------- exact sandbox error messages from `traces/experiment-04-sandbox/` ----------
 
 const DATE_MSG =
   "Date.now() / new Date() are unavailable in workflow scripts (breaks resume). " +

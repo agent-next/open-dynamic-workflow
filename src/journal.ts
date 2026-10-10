@@ -19,7 +19,7 @@ function stableStringify(value: unknown): string {
 const sha = (s: string): string => createHash("sha256").update(s, "utf8").digest("hex");
 
 /**
- * Prefix-CHAINED cache key (ANALYSIS §6 + traces/experiment-06). `key_n` mixes the running
+ * Prefix-CHAINED cache key (traces/experiment-06). `key_n` mixes the running
  * `prevChain` digest (everything invoked before this call, in invocation order) with this call's
  * prompt + the key-relevant opts. Returns the key AND the advanced chain for the next call.
  *

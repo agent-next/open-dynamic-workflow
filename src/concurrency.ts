@@ -2,7 +2,7 @@ import os from "node:os";
 
 export const MAX_TOTAL_AGENTS = 1000;
 
-/** Default concurrency cap: min(16, max(1, cpus-2)). Empirically observed in ANALYSIS §3.3. */
+/** Default concurrency cap: min(16, max(1, cpus-2)). Empirically observed in traces/experiment-03-concurrency/. */
 export function defaultConcurrency(): number {
   return Math.min(16, Math.max(1, os.cpus().length - 2));
 }

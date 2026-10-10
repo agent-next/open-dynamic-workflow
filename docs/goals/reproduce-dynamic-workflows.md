@@ -59,7 +59,7 @@ Two halves: (A) **Understand** the real system from evidence (the official blog 
 - C8 fidelity cross-check: **PASS** — `node tools/compare.mjs` = 34/34 = 100% (stable across runs).
 - C9 resume in repro: **PASS** — resume test = 0 backend calls.
 - C10 staging repo + push: **PASS** — https://github.com/agent-next/open-dynamic-workflow (default branch main, 253 files at this sprint snapshot).
-- Boundaries (Wave C/D): nesting=1 level (exact msg), parallel sync-throw crashes / async-reject→null, pipeline stage-throw→null, empty→[], cap=16, lifetime cap 1000 (engine-tested). See ANALYSIS §12.
+- Boundaries (Wave C/D): nesting=1 level (exact msg), parallel sync-throw crashes / async-reject→null, pipeline stage-throw→null, empty→[], cap=16, lifetime cap 1000 (engine-tested). See `SPEC.md`.
 
 ## Risk areas
 - Parallel codegen drift across fan-out agents → mitigate with Opus-authored `src/types.ts` + `SPEC.md` contract before fan-out.

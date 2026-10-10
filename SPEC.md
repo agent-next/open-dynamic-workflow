@@ -16,14 +16,14 @@ const msg = await client.messages.create({
 // msg.content: array of blocks. text: {type:'text',text}. tool_use: {type:'tool_use',id,name,input}
 // msg.stop_reason === 'tool_use' when a tool was called. msg.usage = {input_tokens, output_tokens}
 ```
-Structured output = a tool named `StructuredOutput` whose `input_schema` is the user schema, forced via `tool_choice:{type:'tool',name:'StructuredOutput'}`; the returned object is the `tool_use` block's `.input` (ANALYSIS §4).
+Structured output = a tool named `StructuredOutput` whose `input_schema` is the user schema, forced via `tool_choice:{type:'tool',name:'StructuredOutput'}`; the returned object is the `tool_use` block's `.input`.
 
 ---
 
 ## src/concurrency.ts
 ```ts
 export const MAX_TOTAL_AGENTS = 1000;
-export function defaultConcurrency(): number; // min(16, max(1, os.cpus().length - 2))  (ANALYSIS §3.3)
+export function defaultConcurrency(): number; // min(16, max(1, os.cpus().length - 2))  (traces/experiment-03-concurrency)
 export class Limiter {
   constructor(max: number);
   run<T>(fn: () => Promise<T>): Promise<T>; // acquire slot (queue if full) -> run -> release
@@ -37,7 +37,7 @@ Tests: ≤max run concurrently (instrument with a counter + delays); excess queu
 ```ts
 import type { AgentOpts, Journal, JournalEvent } from "./types.js";
 export function chainKey(prevChain: string, prompt: string, opts: AgentOpts): { key: string; chain: string };
-// PREFIX-CHAINED (ANALYSIS §6, traces/experiment-06): chain = sha256(prevChain ‖ prompt ‖ stableStringify(
+// PREFIX-CHAINED (traces/experiment-06): chain = sha256(prevChain ‖ prompt ‖ stableStringify(
 //   {schema,model,agentType,isolation})); key = "v2:"+chain. The advanced `chain` feeds the next call,
 //   so editing one call changes every LATER key (cascade) and reordering concurrent calls perturbs the chain.
 export function createJournal(o: { runId: string; dir: string; resumeFromRunId?: string }): Journal;
@@ -73,7 +73,7 @@ export class MockBackend implements AgentBackend {
 export class AnthropicBackend implements AgentBackend {
   constructor(o?: { apiKey?: string; defaultModel?: string; maxTokens?: number; client?: any; aliases?: Record<string,string> });
   run(req: AgentRequest): Promise<AgentResponse>;
-  // resolve model alias (sonnet->claude-sonnet-4-6, haiku->claude-haiku-4-5-20251001 [ANALYSIS §8]; opus->claude-opus-4-6 by naming convention — not observed in traces);
+  // resolve model alias (sonnet->claude-sonnet-4-6, haiku->claude-haiku-4-5-20251001; opus->claude-opus-4-6 by naming convention — not observed in traces);
   // schema: tools=[StructuredOutput], tool_choice forced -> parse .input -> validate -> retry up to MAX_SCHEMA_RETRIES;
   // no schema: read text blocks. outputTokens from msg.usage.output_tokens.
 }
@@ -86,7 +86,7 @@ import type { RunContext, RunConfig, WorkflowGlobals, Budget } from "./types.js"
 export function createContext(cfg: RunConfig & { runId: string }): RunContext;
 export function makeGlobals(ctx: RunContext): WorkflowGlobals;
 ```
-Semantics (ANALYSIS §2,3,6,7):
+Semantics (from the captured traces):
 - `agent(prompt,opts)`: synchronous BEFORE any await → `const ordinal = ++ctx.state.ordinal`; resolve label/phase;
   `const {key,chain} = chainKey(ctx.state.chain, prompt, opts); ctx.state.chain = chain;` `agentId` from ordinal;
   `const cached = journal.lookup(key)` **before** limiterRun — so a fully-cached resume bypasses the concurrency slot entirely;
@@ -111,11 +111,11 @@ export function parseMeta(source: string): Meta;          // extract `export con
 export function runWorkflow(source: string, cfg: RunConfig): Promise<RunResult>;
 export function runWorkflowFile(path: string, cfg: RunConfig): Promise<RunResult>;
 ```
-Sandbox (ANALYSIS §9): run body via `node:vm`. Strip leading `export ` so the source becomes a function body; wrap as
+Sandbox (traces/experiment-04-sandbox): run body via `node:vm`. Strip leading `export ` so the source becomes a function body; wrap as
 `(async function(){ <body> })` in a `vm.createContext` whose globals = injected workflow globals + safe built-ins
 (`JSON, Math, Array, Object, String, Number, Boolean, Promise, Map, Set, console, globalThis`). Provide a `Date` whose
-`now()` and **argless** constructor THROW the exact message from ANALYSIS §9 but `new Date(arg)` works; `Math` is Math with
-`random` throwing the exact §9 message. Do NOT expose require/process/fetch (leave undefined). Generate `runId` if absent
+`now()` and **argless** constructor THROW the exact message recorded in `traces/experiment-04-sandbox/` but `new Date(arg)` works; `Math` is Math with
+`random` throwing the exact message recorded in `traces/experiment-04-sandbox/`. Do NOT expose require/process/fetch (leave undefined). Generate `runId` if absent
 (NO Date/random — derive from a counter/hash of source+args or accept cfg.runId; CLI passes one).
 
 ## src/progress.ts / src/cli.ts / src/index.ts

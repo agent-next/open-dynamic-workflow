@@ -5,8 +5,8 @@ Input : a harvested run dir containing journal.jsonl + agent-<id>.jsonl(+.meta.j
 Output: <run>/../parsed/{journal.json, agents.json, digest.md, system-attachments/*.txt}
 
 Goal: "log everything" — turn the raw transcripts (the real working log) into a
-machine-readable + human-readable ground truth for a 1:1 reproduction. Every fact in
-ANALYSIS.md should be traceable to a field this script extracts.
+machine-readable + human-readable ground truth for a 1:1 reproduction. Every documented
+claim should be traceable to a field this script extracts.
 
 Usage: python3 tools/harvest_trace.py <run_dir> [--out <parsed_dir>]
 """

@@ -212,7 +212,7 @@ describe("budget", () => {
   });
 });
 
-// ---------- (c2) lifetime agent cap = 1000 (ANALYSIS §10) ----------
+// ---------- (c2) lifetime agent cap = 1000 (documented hard limit) ----------
 
 describe("agent lifetime cap", () => {
   it("MAX_TOTAL_AGENTS is 1000 (documented hard limit)", () => {

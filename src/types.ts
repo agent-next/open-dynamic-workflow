@@ -1,6 +1,6 @@
 // Public contract for open-dynamic-workflow — an evidence-grounded 1:1 reproduction of
 // Claude Code "dynamic workflows". Every type here mirrors a behavior empirically observed
-// in traces/ (see ANALYSIS.md / SPEC.md for the citing trace artifact). This file is the
+// in traces/ (see SPEC.md for the citing trace artifact). This file is the
 // SHARED CONTRACT: all modules implement against it; fan-out implementers must not change it.
 
 // ---------- JSON / schema ----------

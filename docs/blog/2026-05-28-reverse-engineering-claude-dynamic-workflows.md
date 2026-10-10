@@ -13,8 +13,8 @@ This post is the full teardown: the method, every surprising finding (with the e
 ## The method: run → harvest → analyze → reproduce → diff to a fixpoint
 
 ```
-blog (concepts) + REAL working logs (7 instrumented runs)  →  ANALYSIS.md  →  src/  →  compare.mjs = 34/34 (100%)
-       S1                     S2…S8                              reasoning      engine     OURS vs CLAUDE
+blog (concepts) + REAL working logs (7 instrumented runs)  →  src/  →  compare.mjs = 34/34 (100%)
+       S1                     S2…S8                         engine     OURS vs CLAUDE
 ```
 
 Every run is a tiny **probe**: a workflow script written to *exercise one behavior and reveal it in the logs*. Claude Code persists each run's script and writes an append-only `journal.jsonl` plus a full transcript per subagent. I harvested those, parsed them (`tools/harvest_trace.py`), and turned each observation into an assertion in `tools/compare.mjs` that re-checks our engine against the captured truth. When a probe disagreed with my implementation, the implementation was wrong — and I fixed it. (That happened twice; both are below.)
@@ -159,6 +159,6 @@ npm test && npm run compare      # 239 tests + 34/34 fidelity
 node dist/cli.js examples/review-changes.js --mock   # offline, deterministic
 ```
 
-The raw traces, the analysis, the experiments, and the engine are all in the repo. If you want to understand how Claude's dynamic workflows actually behave — or orchestrate your own fleet of real agents — start with [`ANALYSIS.md`](../../ANALYSIS.md) and [`RUNLOG.md`](../../RUNLOG.md).
+The raw traces, the analysis, the experiments, and the engine are all in the repo. If you want to understand how Claude's dynamic workflows actually behave — or orchestrate your own fleet of real agents — start with the captured evidence under `traces/` and the contract in [`SPEC.md`](../../SPEC.md).
 
 *"Claude" and "Claude Code" are Anthropic's; this is an independent, educational reproduction.*

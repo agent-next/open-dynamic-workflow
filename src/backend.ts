@@ -14,7 +14,7 @@ export interface AgentTool {
   handler: (input: unknown) => unknown | Promise<unknown>;
 }
 
-// Model aliases — ANALYSIS §8
+// Model aliases — observed in the captured traces
 const DEFAULT_ALIASES: Record<string, string> = {
   sonnet: "claude-sonnet-4-6",
   haiku: "claude-haiku-4-5-20251001",

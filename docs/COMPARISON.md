@@ -125,4 +125,4 @@ Kimi's 300 sub-agents and Manus's hosted scale both exceed our local 16-concurre
 *Note: the mainstream-framework star counts in this document were point-in-time on 2026-05-28 and will drift.*
 
 ## Sources
-Official Claude: workflows, sub-agents, agent-teams, worktrees, cli-reference, managed-agents (multi-agent + overview), changelog — under `code.claude.com/docs` / `platform.claude.com/docs`; announcement <https://claude.com/blog/introducing-dynamic-workflows-in-claude-code>. Vendor platforms: OpenAI (Responses, Codex CLI), Google Vertex Agent Engine, AWS Bedrock/AgentCore/Strands — URLs in §5. Competitor repos linked inline. Full agent transcripts + DR report under `research/`.
+Official Claude: workflows, sub-agents, agent-teams, worktrees, cli-reference, managed-agents (multi-agent + overview), changelog — under `code.claude.com/docs` / `platform.claude.com/docs`; announcement <https://claude.com/blog/introducing-dynamic-workflows-in-claude-code>. Vendor platforms: OpenAI (Responses, Codex CLI), Google Vertex Agent Engine, AWS Bedrock/AgentCore/Strands — URLs in §5. Competitor repos linked inline.

@@ -4,7 +4,7 @@ export const MAX_SCHEMA_RETRIES = 2;
 
 /** Wrap a user-supplied JSON Schema as an Anthropic tool definition for structured output.
  *  The tool is named StructuredOutput (or the caller-supplied name) and its input_schema
- *  is the schema verbatim — matches ANALYSIS §4. */
+ *  is the schema verbatim. */
 export function toToolDef(
   schema: JsonSchema,
   name = "StructuredOutput",

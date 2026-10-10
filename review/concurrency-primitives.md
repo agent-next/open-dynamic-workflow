@@ -1,4 +1,4 @@
-> Historical adversarial-review artifact. This is not the current vulnerability list; see `review/README.md` and `PROGRESS.md` for current status.
+> Historical adversarial-review artifact. This is not the current vulnerability list; see `review/README.md` for context.
 
 Both defects are fully confirmed. Here is my report:
 

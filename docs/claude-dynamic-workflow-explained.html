@@ -406,7 +406,7 @@ details > div, details > pre { padding: 0 18px 16px; }
   <span class="flow-arrow">&#10132;</span>
   <div class="flow-box highlight">工作日志<br><small>（transcript）</small></div>
   <span class="flow-arrow">&#10132;</span>
-  <div class="flow-box">分析文档<br><small>（ANALYSIS.md）</small></div>
+  <div class="flow-box">分析文档<br><small>（SPEC.md）</small></div>
   <span class="flow-arrow">&#10132;</span>
   <div class="flow-box highlight">复现引擎<br><small>（src/）</small></div>
   <span class="flow-arrow">&#10132;</span>
@@ -528,7 +528,7 @@ details > div, details > pre { padding: 0 18px 16px; }
 
 <p>缓存键<strong>不是简单的 <code>hash(prompt)</code></strong>，而是：</p>
 
-<pre><code class="language-js"><span class="hl-comment">// 前缀链式缓存键算法（ANALYSIS §6 + 实验六验证）</span>
+<pre><code class="language-js"><span class="hl-comment">// 前缀链式缓存键算法（实验六验证）</span>
 <span class="hl-comment">// key_n 混合了运行中的 chain 摘要（之前所有调用的信息）+ 当前调用的 prompt + opts</span>
 
 <span class="hl-keyword">function</span> <span class="hl-function">chainKey</span>(<span class="hl-property">prevChain</span>, <span class="hl-property">prompt</span>, <span class="hl-property">opts</span>) {
